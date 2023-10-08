@@ -1,0 +1,24 @@
+﻿@page
+@model WebApplication6.Pages.IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="main-class">
+    <ul>
+        @foreach (var showpro in Model.listShowProducts)
+        {
+            <li>
+                <a href="/product/detail/@showpro.id">
+                    <h1>@showpro.name</h1>
+                    <img src="@showpro.img" alt="anh thuoc tru sau">
+                    <p>@showpro.des</p>
+                    <div class="product-buttons">
+                        <button>Mua ngay</button>
+                        <button>Thêm vào giỏ hàng</button>
+                    </div>
+                </a>
+            </li>
+        }
+    </ul>
+</div>

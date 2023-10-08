@@ -1,0 +1,29 @@
+﻿.main-class {
+}
+
+    .main-class ul {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+        .main-class ul li {
+            width: 30%;
+            aspect-ratio: 1;
+            background-color: red;
+            margin-top: 20px;
+            list-style-type: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+            .main-class ul li img {
+                width: 100%;
+                aspect-ratio: 4/2;
+            }
+
+            .main-class ul li p {
+                width: 100%;
+                text-align: center;
+            }

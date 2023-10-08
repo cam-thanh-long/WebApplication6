@@ -1,0 +1,100 @@
+﻿@page "/product/detail/{id}"
+@model WebApplication6.Pages.ProductDetailModel
+
+@{
+    var productId = Convert.ToInt32(PageContext.RouteData.Values["id"]);
+    var product = Model.listProducts.FirstOrDefault(p => p.id == productId.ToString());
+}
+
+<div class="product-detail-container">
+    <div class="product-image">
+        <img src="@product.img" alt="anh thuoc tru sau">
+    </div>
+    <div class="product-info">
+        <h1>@product.name</h1>
+        <p>@product.des</p>
+        <div class="product-details">
+            <div>
+                <p><strong>HSD:</strong> @product.exp</p>
+                <p><strong>NSX:</strong> @product.mfg</p>
+            </div>
+            <div>
+                <p><strong>Số lượng:</strong> @product.quantity</p>
+            </div>
+        </div>
+        <div class="product-buttons">
+            <button class="buy-button">Mua ngay</button>
+            <button class="add-to-cart-button">Thêm vào giỏ hàng</button>
+        </div>
+    </div>
+</div>
+
+<style>
+    .product-detail-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .product-image img {
+        max-width: 50%;
+        height: auto;
+        border: 1px solid #ddd;
+        padding: 10px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .product-info {
+        padding: 20px;
+        text-align: left;
+    }
+
+        .product-info h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .product-info p {
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+    .product-details {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+
+        .product-details div {
+            flex: 1;
+        }
+
+    .product-buttons {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .buy-button,
+    .add-to-cart-button {
+        padding: 10px 20px;
+        font-size: 18px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .add-to-cart-button {
+        background-color: #28a745;
+        margin-left: 10px;
+    }
+
+        .buy-button:hover,
+        .add-to-cart-button:hover {
+            background-color: #0056b3;
+        }
+</style>
