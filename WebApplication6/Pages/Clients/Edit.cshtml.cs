@@ -15,7 +15,7 @@ namespace WebApplication6.Pages.Clients
 
             try
             {
-                string connectionString = "Data Source=NOTTODAY\\SQLEXPRESS;Initial Catalog=webstore;Integrated Security=True";
+                string connectionString = "Data Source=DESKTOP-5TDVCUG;Initial Catalog=mystore;Integrated Security=True";
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();

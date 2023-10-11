@@ -1,0 +1,41 @@
+﻿@page
+@model thongtinkhachhangModel
+@{
+    <h1>Hay dien thong tin cua ban</h1>
+    <form method="post">
+        <div class="row mb-3">
+            <label class="col-sm-3 col-form-label">Tên Khách hàng:</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" name="customerName" />
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label class="col-sm-3 col-form-label">Số điện thoại:</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" name="phoneNumber" />
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label class="col-sm-3 col-form-label">Địa chỉ:</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" name="customerAddress" />
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="offset-sm-3 col-sm-9">
+                <button type="submit" class="btn btn-primary">Thanh toán</button>
+            </div>
+        </div>
+    </form>
+}
+
+<script>
+    window.onload = function () {
+        console.log("Trang thongtinkhachhang đã được tải.");
+
+        var shoppingCartData = @Html.Raw(Json.Serialize(Model.ShoppingCartData));
+        console.log("Thông tin sản phẩm:", shoppingCartData);
+    }
+
+</script>
+

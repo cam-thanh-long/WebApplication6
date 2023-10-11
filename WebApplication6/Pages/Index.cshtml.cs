@@ -1,11 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data.SqlClient;
+using System.Reflection;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace WebApplication6.Pages
 {
     public class IndexModel : PageModel
     {
+
         private readonly ILogger<IndexModel> _logger;
 
         public IndexModel(ILogger<IndexModel> logger)
@@ -18,7 +24,8 @@ namespace WebApplication6.Pages
         {
             try
             {
-                string connectionString = "Data Source=NOTTODAY\\SQLEXPRESS;Initial Catalog=webstore;Integrated Security=True";
+                //tự tạo xong phải sửa lại đường dẫn source phía dưới này
+                string connectionString = "Data Source=DESKTOP-5TDVCUG;Initial Catalog=mystore;Integrated Security=True";
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
@@ -50,6 +57,8 @@ namespace WebApplication6.Pages
 
             }
         }
+
+
     }
 
     public class ShowProduct
@@ -64,4 +73,5 @@ namespace WebApplication6.Pages
         public string exp;
 
     }
+
 }

@@ -1,79 +1,101 @@
 ﻿@page
 @model WebApplication6.Pages.CartModel
 @{
+    ViewData["Title"] = "Giỏ hàng của bạn";
 }
-<h1>giỏ hàng của bạn</h1>
+
+<h1>Giỏ hàng của bạn</h1>
 <div class="main-class">
     <ul>
-        <li>
-            <h1>ten thuoc tru sau</h1>
-            <img src="https://tanhungco.vn/wp-content/uploads/2022/07/38_B40-nuoc-duc.png" alt="anh thuoc tru sau">
-            <p>mo ta cho thuc tru sau cong dung</p>
-            <button>mua ngay</button>
-            <button>them vao ro hang</button>
-        </li>
-        <li>
-            <h1>ten thuoc tru sau</h1>
-            <img src="https://tanhungco.vn/wp-content/uploads/2022/07/38_B40-nuoc-duc.png" alt="anh thuoc tru sau">
-            <p>mo ta cho thuc tru sau cong dung</p>
-            <button>mua ngay</button>
-            <button>them vao ro hang</button>
-        </li>
-        <li>
-            <h1>ten thuoc tru sau</h1>
-            <img src="https://tanhungco.vn/wp-content/uploads/2022/07/38_B40-nuoc-duc.png" alt="anh thuoc tru sau">
-            <p>mo ta cho thuc tru sau cong dung</p>
-            <button>mua ngay</button>
-            <button>them vao ro hang</button>
-        </li>
-        <li>
-            <h1>ten thuoc tru sau</h1>
-            <img src="https://tanhungco.vn/wp-content/uploads/2022/07/38_B40-nuoc-duc.png" alt="anh thuoc tru sau">
-            <p>mo ta cho thuc tru sau cong dung</p>
-            <button>mua ngay</button>
-            <button>them vao ro hang</button>
-        </li>
-        <li>
-            <h1>ten thuoc tru sau</h1>
-            <img src="https://tanhungco.vn/wp-content/uploads/2022/07/38_B40-nuoc-duc.png" alt="anh thuoc tru sau">
-            <p>mo ta cho thuc tru sau cong dung</p>
-            <button>mua ngay</button>
-            <button>them vao ro hang</button>
-        </li>
-        <li>
-            <h1>ten thuoc tru sau</h1>
-            <img src="https://tanhungco.vn/wp-content/uploads/2022/07/38_B40-nuoc-duc.png" alt="anh thuoc tru sau">
-            <p>mo ta cho thuc tru sau cong dung</p>
-            <button>mua ngay</button>
-            <button>them vao ro hang</button>
-        </li>
-        <li>
-            <h1>ten thuoc tru sau</h1>
-            <img src="https://tanhungco.vn/wp-content/uploads/2022/07/38_B40-nuoc-duc.png" alt="anh thuoc tru sau">
-            <p>mo ta cho thuc tru sau cong dung</p>
-            <button>mua ngay</button>
-            <button>them vao ro hang</button>
-        </li>
-        <li>
-            <h1>ten thuoc tru sau</h1>
-            <img src="https://tanhungco.vn/wp-content/uploads/2022/07/38_B40-nuoc-duc.png" alt="anh thuoc tru sau">
-            <p>mo ta cho thuc tru sau cong dung</p>
-            <button>mua ngay</button>
-            <button>them vao ro hang</button>
-        </li>
-        <li>
-            <h1>ten thuoc tru sau</h1>
-            <img src="https://tanhungco.vn/wp-content/uploads/2022/07/38_B40-nuoc-duc.png" alt="anh thuoc tru sau">
-            <p>mo ta cho thuc tru sau cong dung</p>
-            <button>mua ngay</button>
-            <button>them vao ro hang</button>
-        </li>
-        <li>
-            <h1>ten thuoc tru sau</h1>
-            <img src="https://tanhungco.vn/wp-content/uploads/2022/07/38_B40-nuoc-duc.png" alt="anh thuoc tru sau">
-            <p>mo ta cho thuc tru sau cong dung</p>
-            <button>mua ngay</button>
-            <button>them vao ro hang</button>
-        </li>
+        @if (Model.ShoppingCart != null && Model.ShoppingCart.Count > 0)
+        {
+            @foreach (var product in Model.ShoppingCart)
+            {
+                <li>
+                    <p>ID: @product.id</p>
+                    <p>Số lượng: @product.quantity</p>
+                </li>
+            }
+        }
     </ul>
+
+    <!-- Nút để reset Local Storage -->
+    <button id="resetLocalStorageButton">Reset</button>
+
+    <!-- Nút để thanh toán và hiển thị form nhập thông tin -->
+    <a class="btn" href="/thongtinkhachhang" id="checkoutButton">Thanh toan</a>
 </div>
+
+<script>
+    const cartData = localStorage.getItem("cart");
+
+    // Nếu có dữ liệu trong Local Storage, gửi nó đến trang Razor Page bằng AJAX
+    if (cartData) {
+        const cart = JSON.parse(cartData);
+
+        // Thực hiện các thao tác hiển thị dữ liệu trên trang web dựa vào thông tin trong mảng "cart"
+        if (Array.isArray(cart) && cart.length > 0) {
+            const cartDiv = document.querySelector('.main-class ul');
+
+            cart.forEach(function (product) {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = '<p>ID: ' + product.id + '</p>' +
+                    '<p>Số lượng: ' + product.quantity + '</p>';
+
+                cartDiv.appendChild(listItem);
+            });
+        }
+        else {
+            // Nếu giỏ hàng trống, có thể hiển thị thông báo khác
+            const cartDiv = document.querySelector('.main-class ul');
+            cartDiv.innerHTML = '<p>Giỏ hàng của bạn trống rỗng.</p>';
+        }
+    }
+
+    //window.addEventListener("unload", function () {
+     //   localStorage.removeItem("cart");
+    //});
+
+    document.getElementById('resetLocalStorageButton').addEventListener('click', function () {
+        localStorage.removeItem("cart");
+        location.reload(); // Tải lại trang để cập nhật giao diện
+    });
+
+    document.getElementById('checkoutButton').addEventListener('click', function () {
+        const cartData = localStorage.getItem("cart");
+
+        // Kiểm tra xem có dữ liệu trong Local Storage hay không
+        if (cartData) {
+            // Chuyển dữ liệu từ Local Storage sang một biến JavaScript (ở đây là cart)
+            const cart = JSON.parse(cartData);
+
+            // Kiểm tra xem cart có dữ liệu không
+            if (Array.isArray(cart) && cart.length > 0) {
+                // Chuyển dữ liệu từ cart sang dạng JSON và đặt nó vào một biến FormData
+                const formData = new FormData();
+                formData.append("shoppingCartData", JSON.stringify(cart));
+
+                // Sử dụng AJAX để gửi dữ liệu đến trang Razor Page "thongtinkhachhang"
+                fetch("/thongtinkhachhang", {
+                    method: "POST",
+                    body: formData,
+                })
+                    .then(response => {
+                        // Xử lý phản hồi từ trang "thongtinkhachhang" nếu cần
+                        if (response.ok) {
+                            // Nếu mọi thứ đều ổn, bạn có thể thực hiện chuyển hướng hoặc hiển thị thông báo thành công
+                            window.location.href = "/thongtinkhachhang"; // Ví dụ: chuyển hướng đến trang "thongtinkhachhang"
+                        } else {
+                            // Xảy ra lỗi, xử lý lỗi tại đây nếu cần
+                        }
+                    })
+                    .catch(error => {
+                        // Xử lý lỗi nếu có lỗi khi thực hiện fetch
+                    });
+            }
+        }
+    });
+
+</script>
+
+

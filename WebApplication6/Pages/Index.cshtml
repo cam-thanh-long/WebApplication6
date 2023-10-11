@@ -15,10 +15,50 @@
                     <p>@showpro.des</p>
                     <div class="product-buttons">
                         <button>Mua ngay</button>
-                        <button>Thêm vào giỏ hàng</button>
+                        <form method="post" onsubmit="addToCart(event)">
+                            <input type="hidden" name="productId" value="@showpro.id" />
+                            <button type="submit" class="add-to-cart-button">Thêm vào giỏ hàng</button>
+                        </form>
+
                     </div>
                 </a>
             </li>
         }
     </ul>
 </div>
+
+<script>
+    function addToCart(event) {
+        event.preventDefault(); // Ngăn chặn form submit
+
+        // Lấy productId từ input
+        const productId = event.target.querySelector('input[name="productId"]').value;
+
+        // Lấy giỏ hàng hiện tại từ Local Storage (nếu có)
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        // Kiểm tra xem sản phẩm đã có trong giỏ hàng chưa
+        const existingProduct = cart.find(product => product.id === productId);
+
+        if (existingProduct) {
+            // Tăng số lượng nếu sản phẩm đã tồn tại trong giỏ hàng
+            existingProduct.quantity++;
+        } else {
+            // Nếu sản phẩm chưa có trong giỏ hàng, thêm vào
+            const productToAdd = {
+                id: productId,
+                quantity: 1 // Số lượng ban đầu là 1
+            };
+            cart.push(productToAdd);
+        }
+
+        // Lưu giỏ hàng vào Local Storage
+        localStorage.setItem("cart", JSON.stringify(cart));
+
+        // Hiển thị thông báo hoặc cập nhật giao diện nếu cần
+        alert("Sản phẩm đã được thêm vào giỏ hàng.");
+
+        // Có thể chuyển người dùng đến trang giỏ hàng sau khi thêm sản phẩm
+        // window.location.href = "/cart";
+    }
+</script>
