@@ -11,7 +11,7 @@ namespace WebApplication6.Pages
         {
             try
             {
-                string connectionString = "Data Source=DESKTOP-5TDVCUG;Initial Catalog=mystore;Integrated Security=True";
+                string connectionString = "Data Source=X-PC\\MSSQLSERVER02;Initial Catalog=webstore;Integrated Security=True;Pooling=False";
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();

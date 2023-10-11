@@ -25,7 +25,7 @@ namespace WebApplication6.Pages
             try
             {
                 //tự tạo xong phải sửa lại đường dẫn source phía dưới này
-                string connectionString = "Data Source=DESKTOP-5TDVCUG;Initial Catalog=mystore;Integrated Security=True";
+                string connectionString = "Data Source=X-PC\\MSSQLSERVER02;Initial Catalog=webstore;Integrated Security=True;Pooling=False";
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
